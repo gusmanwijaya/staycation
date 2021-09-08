@@ -6,6 +6,7 @@ import IconTraveler from "assets/images/icons/icon-traveler.svg";
 import IconTreasure from "assets/images/icons/icon-treasure.svg";
 import Button from "elements/Button";
 import formatNumber from "utils/formatNumber";
+import Zoom from "react-reveal/Zoom";
 
 export default function Hero(props) {
   function showMostPicked() {
@@ -85,22 +86,24 @@ export default function Hero(props) {
           </div>
         </div>
 
-        <div className="col-6 pl-5">
-          <div style={{ width: 520, height: 410 }}>
-            <img
-              src={ImageHero}
-              alt="Room with couches"
-              className="img-fluid position-absolute"
-              style={{ margin: "-30px 0 0 -30px", zIndex: 1 }}
-            />
-            <img
-              src={ImageHeroFrame}
-              alt="Room with couches frame"
-              className="img-fluid position-absolute"
-              style={{ margin: "0 -15px -15px 0" }}
-            />
+        <Zoom>
+          <div className="col-6 pl-5">
+            <div style={{ width: 520, height: 410 }}>
+              <img
+                src={ImageHero}
+                alt="Room with couches"
+                className="img-fluid position-absolute"
+                style={{ margin: "-30px 0 0 -30px", zIndex: 1 }}
+              />
+              <img
+                src={ImageHeroFrame}
+                alt="Room with couches frame"
+                className="img-fluid position-absolute"
+                style={{ margin: "0 -15px -15px 0" }}
+              />
+            </div>
           </div>
-        </div>
+        </Zoom>
       </div>
     </section>
   );

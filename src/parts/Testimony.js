@@ -2,27 +2,33 @@ import React from "react";
 import Star from "elements/Star";
 import TestimonyAccent from "assets/images/testimonial-landingpages-frame.jpg";
 import Button from "elements/Button";
+import Zoom from "react-reveal/Zoom";
 
 export default function Testimony({ data }) {
   return (
     <section className="container">
       <div className="row align-items-center">
-        <div className="col-auto" style={{ marginRight: 70 }}>
-          <div className="testimonial-hero" style={{ margin: `30px 0 0 30px` }}>
-            <img
-              src={data.imageUrl}
-              alt="Testimonial"
-              className="position-absolute"
-              style={{ zIndex: 1 }}
-            />
-            <img
-              src={TestimonyAccent}
-              alt="Testimonial frame"
-              className="position-absolute"
-              style={{ margin: `-30px 0 0 -30px` }}
-            />
+        <Zoom>
+          <div className="col-auto" style={{ marginRight: 70 }}>
+            <div
+              className="testimonial-hero"
+              style={{ margin: `30px 0 0 30px` }}
+            >
+              <img
+                src={data.imageUrl}
+                alt="Testimonial"
+                className="position-absolute"
+                style={{ zIndex: 1 }}
+              />
+              <img
+                src={TestimonyAccent}
+                alt="Testimonial frame"
+                className="position-absolute"
+                style={{ margin: `-30px 0 0 -30px` }}
+              />
+            </div>
           </div>
-        </div>
+        </Zoom>
         <div className="col">
           <h4 style={{ marginBottom: 40 }}>{data.name}</h4>
           <Star value={data.rate} width={35} height={35} spacing={4}></Star>
