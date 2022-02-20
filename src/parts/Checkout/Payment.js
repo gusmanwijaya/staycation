@@ -31,7 +31,7 @@ export default function Payment(props) {
                   <dl>
                     <dd>Bank Central Asia</dd>
                     <dd>2208 1996</dd>
-                    <dd>BuildWith Angga</dd>
+                    <dd>Gusman Wijaya</dd>
                   </dl>
                 </div>
               </div>
@@ -44,7 +44,7 @@ export default function Payment(props) {
                   <dl>
                     <dd>Bank Mandiri</dd>
                     <dd>2208 1996</dd>
-                    <dd>BuildWith Angga</dd>
+                    <dd>Gusman Wijaya</dd>
                   </dl>
                 </div>
               </div>
@@ -61,21 +61,21 @@ export default function Payment(props) {
                 onChange={props.onChange}
               />
 
-              <label htmlFor="bankName">Asal Bank</label>
+              <label htmlFor="bankFrom">Asal Bank</label>
               <InputText
-                id="bankName"
-                name="bankName"
+                id="bankFrom"
+                name="bankFrom"
                 type="text"
-                value={data.bankName}
+                value={data.bankFrom}
                 onChange={props.onChange}
               />
 
-              <label htmlFor="bankHolder">Nama Pengirim</label>
+              <label htmlFor="accountHolder">Nama Pengirim</label>
               <InputText
-                id="bankHolder"
-                name="bankHolder"
+                id="accountHolder"
+                name="accountHolder"
                 type="text"
-                value={data.bankHolder}
+                value={data.accountHolder}
                 onChange={props.onChange}
               />
             </Fade>

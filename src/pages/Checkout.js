@@ -14,8 +14,8 @@ import BookingInformation from "parts/Checkout/BookingInformation";
 import Payment from "parts/Checkout/Payment";
 import Completed from "parts/Checkout/Completed";
 
-import ItemDetails from "json/itemDetails.json";
 import { connect } from "react-redux";
+import { submitBooking } from "store/actions/checkout";
 
 class Checkout extends Component {
   state = {
@@ -23,10 +23,10 @@ class Checkout extends Component {
       firstName: "",
       lastName: "",
       email: "",
-      phone: "",
+      phoneNumber: "",
       proofPayment: "",
-      bankName: "",
-      bankHolder: "",
+      accountHolder: "",
+      bankFrom: "",
     },
   };
 
@@ -44,9 +44,35 @@ class Checkout extends Component {
     document.title = "Staycation | Checkout";
   }
 
+  onSubmit = (nextStep) => {
+    const { data } = this.state;
+    const { checkout, page } = this.props;
+
+    const payload = new FormData();
+    payload.append("image", data.proofPayment[0]);
+    payload.append("idItem", checkout._id);
+    payload.append("duration", checkout.duration);
+    payload.append("price", page[checkout._id].price);
+    payload.append("bookingStartDate", checkout.date.startDate);
+    payload.append("bookingEndDate", checkout.date.endDate);
+    payload.append("firstName", data.firstName);
+    payload.append("lastName", data.lastName);
+    payload.append("email", data.email);
+    payload.append("phoneNumber", data.phoneNumber);
+    payload.append("accountHolder", data.accountHolder);
+    payload.append("bankFrom", data.bankFrom);
+
+    this.props
+      .submitBooking(payload)
+      .then(() => {
+        nextStep();
+      })
+      .catch((error) => console.log(error));
+  };
+
   render() {
     const { data } = this.state;
-    const { checkout } = this.props;
+    const { checkout, page } = this.props;
 
     if (!checkout) {
       return (
@@ -58,7 +84,12 @@ class Checkout extends Component {
             <div className="col-3">
               Pilih kamar dulu
               <div>
-                <Button className="btn mt-5" type="link" href="/" isLight>
+                <Button
+                  className="btn mt-5"
+                  type="button"
+                  onClick={() => this.props.history.goBack()}
+                  isLight
+                >
                   Back
                 </Button>
               </div>
@@ -76,7 +107,7 @@ class Checkout extends Component {
           <BookingInformation
             data={data}
             checkout={checkout}
-            ItemDetails={ItemDetails}
+            ItemDetails={page[checkout._id]}
             onChange={this.onChange}
           />
         ),
@@ -87,7 +118,7 @@ class Checkout extends Component {
         content: (
           <Payment
             data={data}
-            ItemDetails={ItemDetails}
+            ItemDetails={page[checkout._id]}
             checkout={checkout}
             onChange={this.onChange}
           />
@@ -122,7 +153,7 @@ class Checkout extends Component {
                   {data.firstName !== "" &&
                     data.lastName !== "" &&
                     data.email !== "" &&
-                    data.phone !== "" && (
+                    data.phoneNumber !== "" && (
                       <Fade>
                         <Button
                           className="btn mb-3"
@@ -138,10 +169,10 @@ class Checkout extends Component {
                     )}
                   <Button
                     className="btn"
-                    type="link"
+                    type="button"
                     isBlock
                     isLight
-                    href={`/properties/${ItemDetails._id}`}
+                    onClick={() => this.props.history.goBack()}
                   >
                     Cancel
                   </Button>
@@ -150,22 +181,20 @@ class Checkout extends Component {
 
               {CurrentStep === "payment" && (
                 <Controller>
-                  {data.proofPayment !== "" &&
-                    data.bankName !== "" &&
-                    data.bankHolder !== "" && (
-                      <Fade>
-                        <Button
-                          className="btn mb-3"
-                          type="button"
-                          isBlock
-                          isPrimary
-                          hasShadow
-                          onClick={nextStep}
-                        >
-                          Continue to Booking
-                        </Button>
-                      </Fade>
-                    )}
+                  {data.accountHolder !== "" && data.bankFrom !== "" && (
+                    <Fade>
+                      <Button
+                        className="btn mb-3"
+                        type="button"
+                        isBlock
+                        isPrimary
+                        hasShadow
+                        onClick={() => this.onSubmit(nextStep)}
+                      >
+                        Continue to Booking
+                      </Button>
+                    </Fade>
+                  )}
                   <Button
                     className="btn"
                     type="button"
@@ -202,6 +231,7 @@ class Checkout extends Component {
 
 const mapStateToProps = (state) => ({
   checkout: state.checkout,
+  page: state.page,
 });
 
-export default connect(mapStateToProps)(Checkout);
+export default connect(mapStateToProps, { submitBooking })(Checkout);

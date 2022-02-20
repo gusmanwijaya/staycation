@@ -15,14 +15,14 @@ export default function BookingInformation(props) {
                 <figure className="img-wrapper" style={{ height: 270 }}>
                   <img
                     className="img-cover"
-                    src={ItemDetails.imageUrls[0].url}
-                    alt={ItemDetails._id}
+                    src={`${process.env.REACT_APP_HOST_IMAGE}/${ItemDetails.imageId[0].imageUrl}`}
+                    alt={ItemDetails.title}
                   />
                 </figure>
                 <div className="row align-items-center">
                   <div className="col">
                     <div className="meta-wrapper">
-                      <h5>{ItemDetails.name}</h5>
+                      <h5>{ItemDetails.title}</h5>
                       <span className="text-gray-500">
                         {ItemDetails.city}, {ItemDetails.country}
                       </span>
@@ -67,12 +67,12 @@ export default function BookingInformation(props) {
                 onChange={props.onChange}
               />
 
-              <label htmlFor="phone">Phone Number</label>
+              <label htmlFor="phoneNumber">Phone Number</label>
               <InputText
-                id="phone"
-                name="phone"
+                id="phoneNumber"
+                name="phoneNumber"
                 type="tel"
-                value={data.phone}
+                value={data.phoneNumber}
                 onChange={props.onChange}
               />
             </Fade>

@@ -29,7 +29,7 @@ export default function Activities({ data }) {
                       <img
                         src={
                           item.imageUrl
-                            ? `${process.env.REACT_APP_HOST}/${item.imageUrl}`
+                            ? `${process.env.REACT_APP_HOST_IMAGE}/${item.imageUrl}`
                             : ""
                         }
                         alt={item.name}
